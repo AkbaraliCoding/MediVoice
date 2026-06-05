@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MediVoice — Fikr Bildirish</title>
+<link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="logo">
+    <div class="logo-icon">🏥</div>
+    <div class="logo-text">MediVoice</div>
+  </a>
+  <!-- Nav da "Bosh sahifa" tugmasi yo'q — bemorlar uchun oddiy ko'rinish -->
+</nav>
+
+<div class="feedback-page">
+  <div class="feedback-wrap">
+
+    <!-- Entity Badge -->
+    <div class="fb-entity-badge" id="entityBadge">
+      <div class="icon" id="entityIcon">🏥</div>
+      <div class="info">
+        <h4 id="entityName">Yuklanmoqda...</h4>
+        <span id="entityDesc">Bo'lim ma'lumoti</span>
+      </div>
+    </div>
+
+    <!-- Main form -->
+    <div id="fbForm">
+
+      <!-- Stars -->
+      <div class="fb-label">Baho bering</div>
+      <div class="stars" id="starsRow">
+        <button class="star-btn" data-v="1" onclick="setRating(1)">⭐</button>
+        <button class="star-btn" data-v="2" onclick="setRating(2)">⭐</button>
+        <button class="star-btn" data-v="3" onclick="setRating(3)">⭐</button>
+        <button class="star-btn" data-v="4" onclick="setRating(4)">⭐</button>
+        <button class="star-btn" data-v="5" onclick="setRating(5)">⭐</button>
+      </div>
+
+      <!-- Voice section -->
+      <div class="voice-section">
+        <div class="fb-label">Ovozli xabar (ixtiyoriy)</div>
+        <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()">
+          <span id="voiceBtnIcon">🎙️</span>
+          <span id="voiceBtnText">Ovozli xabar yozish</span>
+        </button>
+        <div class="voice-status" id="voiceStatus">
+          <span id="voiceStatusText">⏱ Yozib olinmoqda...</span>
+        </div>
+        <div class="voice-transcript" id="voiceTranscript"></div>
+      </div>
+
+      <div class="divider">yoki matnli yozing</div>
+
+      <!-- Text input -->
+      <div class="fb-label">Matnli fikr</div>
+      <textarea class="fb-textarea" id="fbText" placeholder="Bu bo'lim, shifokor yoki xizmat haqida fikringizni yozing..."></textarea>
+
+      <button class="btn-submit" id="submitBtn" onclick="submitFeedback()">
+        ✉️ Fikrni yuborish
+      </button>
+    </div>
+
+    <!-- Success — "Bosh sahifaga qaytish" tugmasi olib tashlandi -->
+    <div class="success-box" id="successBox">
+      <div class="big-emoji">🙏</div>
+      <h3>Rahmat!</h3>
+      <p>Fikringiz muvaffaqiyatli qabul qilindi.<br/>Sizning ovozingiz xizmat sifatini yaxshilashga yordam beradi.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- CHATBOT FAB -->
+<button id="chatbot-fab" onclick="toggleChat()">
+  🤖
+  <div class="fab-badge">AI</div>
+</button>
+
+<div id="chatbot-panel">
+  <div class="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-header-info">
+      <h4>MediVoice AI Yordamchi</h4>
+      <span>● Onlayn</span>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-quick-btns" id="quickBtns"></div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chatInput" placeholder="Savol yozing..." onkeydown="if(event.key==='Enter')sendChat()"/>
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/app.js"></script>
+<script>
+initFeedback();
+</script>
+</body>
+</html>

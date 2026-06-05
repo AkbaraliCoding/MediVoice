@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MediVoice — Admin Kirish</title>
+<link rel="stylesheet" href="../css/style.css"/>
+<style>
+  .login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+  }
+  .login-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 48px 44px 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(10,107,92,.08);
+  }
+  .login-logo { text-align: center; margin-bottom: 28px; }
+  .login-logo .icon { font-size: 48px; }
+  .login-logo h2 {
+    font-family: var(--font-serif);
+    color: var(--teal);
+    font-size: 22px;
+    margin: 8px 0 4px;
+  }
+  .login-logo p { color: var(--muted); font-size: 14px; }
+  .login-field { margin-bottom: 18px; }
+  .login-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 7px;
+  }
+  .login-field input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--dark);
+    box-sizing: border-box;
+    transition: border-color .2s;
+    outline: none;
+  }
+  .login-field input:focus { border-color: var(--teal); }
+  .login-btn {
+    width: 100%;
+    padding: 13px;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    margin-top: 6px;
+    transition: opacity .2s;
+  }
+  .login-btn:hover { opacity: .88; }
+  .login-btn:disabled { opacity: .6; cursor: default; }
+  .login-error {
+    display: none;
+    background: #fdf4f4;
+    border: 1.5px solid var(--red);
+    color: var(--red);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    margin-top: 14px;
+    text-align: center;
+  }
+  .login-error.show { display: block; }
+</style>
+</head>
+<body>
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="icon">🏥</div>
+      <h2>MediVoice</h2>
+      <p>Admin panel — kirish</p>
+    </div>
+    <div class="login-field">
+      <label>Foydalanuvchi nomi</label>
+      <input type="text" id="loginUser" placeholder="Username" autocomplete="username"
+             onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <div class="login-field">
+      <label>Parol</label>
+      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">🔐 Kirish</button>
+    <div class="login-error" id="loginError">❌ Username yoki parol noto'g'ri</div>
+  </div>
+</div>
+
+<script src="../js/config.js"></script>
+<script>
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function doLogin() {
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+
+  errEl.classList.remove('show');
+
+  const creds = (typeof MEDVOICE_CONFIG !== 'undefined') ? MEDVOICE_CONFIG.ADMIN_CREDENTIALS : null;
+  if (!creds) {
+    errEl.textContent = '⚠️ Admin hisob sozlanmagan. server.py orqali ishga tushiring.';
+    errEl.classList.add('show');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Tekshirilmoqda...';
+
+  const inputHash = await sha256(pass);
+
+  if (user === creds.username && inputHash === creds.password) {
+    sessionStorage.setItem('medivoice_admin_auth', 'true');
+    window.location.href = 'admin.html';
+  } else {
+    errEl.textContent = '❌ Username yoki parol noto\'g\'ri';
+    errEl.classList.add('show');
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginPass').focus();
+    btn.disabled = false;
+    btn.textContent = '🔐 Kirish';
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MediVoice — Shifoxona Fikr Tizimi</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">🏥</div>
+    <div class="logo-text">MediVoice</div>
+  </a>
+  <div class="nav-r">
+    <a href="#bolimlar" class="nav-link">Bo'limlar</a>
+    <a href="#qanday" class="nav-link">Qanday ishlaydi</a>
+    <a href="pages/login.html" class="btn-nav-admin">Admin →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+    <div class="chip fade"><div class="pulse"></div>Anonim fikr tizimi</div>
+    <h1 class="fade d1">Bemorlar ovozi — <em>sifat mezoni</em></h1>
+    <p class="hero-sub fade d2">Har bir bo'lim uchun alohida QR kod. Bemor skanerlaydi — ovozli yoki matnli fikr bildiradi. AI avtomatik tahlil qilib, adminlarga yetkazadi.</p>
+    <div class="hero-btns fade d3">
+      <a href="#bolimlar" class="btn-p">📋 Bo'limlarni ko'rish</a>
+      <a href="pages/login.html" class="btn-o">Admin Panel</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="stat-item"><div class="stat-num" id="stTotal">0</div><div class="stat-lbl">Jami fikrlar</div></div>
+  <div class="stat-item"><div class="stat-num" id="stPositive">0</div><div class="stat-lbl">Ijobiy</div></div>
+  <div class="stat-item"><div class="stat-num" id="stNeg">0</div><div class="stat-lbl">Shikoyat</div></div>
+  <div class="stat-item"><div class="stat-num" id="stAvg">—</div><div class="stat-lbl">O'rt. baho</div></div>
+  <div class="stat-item"><div class="stat-num" id="stQrs">0</div><div class="stat-lbl">Aktiv bo'lim</div></div>
+</div>
+
+<section id="bolimlar" style="background:var(--white)">
+  <div class="sec-label">QR Kod tizimi</div>
+  <h2 class="sec-title">Shifoxona bo'limlari</h2>
+  <p class="sec-sub">Quyidagi QR kodlarni chop etib, mos bo'limlarga ilintiring. Bemorlar skanerlasa, shu bo'lim bo'yicha fikr bildirish sahifasi ochiladi.</p>
+  <div class="dept-grid" id="deptGrid"></div>
+</section>
+
+<section id="qanday">
+  <div class="sec-label">Qanday ishlaydi</div>
+  <h2 class="sec-title">3 qadam — to'liq jarayon</h2>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-icon">📱</div>
+      <h3>1. Skanerlash</h3>
+      <p>Bemor bo'lim yonidagi QR kodni telefon kamerasi bilan skanerlaydi.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">🎙️</div>
+      <h3>2. Fikr bildirish</h3>
+      <p>Ovozli yoki matnli fikr qoldiradi. Anonim — hech qanday login shart emas.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-icon">🤖</div>
+      <h3>3. AI tahlil</h3>
+      <p>AI fikrni tahlil qiladi: ovozni matnga o'tkazadi, ijobiy/salbiy ajratadi, adminga yetkazadi.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-logo">
+    🏥 MediVoice
+    <p>Anonim fikr-mulohaza tizimi</p>
+    <p style="margin-top:6px;font-size:12px">📍 Toshkent, Yunusobod · 📞 +998 71 123 45 67</p>
+  </div>
+  <div class="foot-links">
+    <a href="#bolimlar">Bo'limlar</a>
+    <a href="pages/login.html">Admin Panel</a>
+    <a href="pages/feedback.html?id=umumiy">Umumiy fikr</a>
+  </div>
+  <div class="foot-copy">© 2025 MediVoice. Barcha huquqlar himoyalangan.</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+// QR kod uchun feedback.html path to'g'ri bo'lishi kerak
+window._feedbackBasePath = window.location.href.replace('index.html', '').replace(/\/$/, '') + '/pages/feedback.html';
+initIndex();
+</script>
+</body>
+</html>
